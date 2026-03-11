@@ -3,16 +3,18 @@
     "tasks": [
         {
             "type": "cppbuild",
-            "label": "C/C++: g++ 生成可执行文件",
-            "command": "/usr/bin/g++",
+            "label": "C/C++: clang++ 生成可执行文件",
+            "command": "/usr/bin/clang++",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
                 "${workspaceFolder}/Life/main.cpp",
                 "${workspaceFolder}/Life/life_game.cpp",
                 "${workspaceFolder}/Life/utilities.cpp",
+                "-I",
+                "${workspaceFolder}/include",
                 "-o",
-                "${workspaceFolder}/life_game"
+                "${workspaceFolder}/build/life_game"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
@@ -24,7 +26,7 @@
                 "kind": "build",
                 "isDefault": true
             },
-            "detail": "编译器: /usr/bin/g++"
+            "detail": "编译器: /usr/bin/clang++"
         },
         {
             "type": "cppbuild",
