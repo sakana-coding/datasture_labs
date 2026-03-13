@@ -27,6 +27,8 @@ int Mystack::size() const
 }
 void Mystack::push(double num)
 {
+    if (count == 10)
+        return;
     vec.push_back(num);
     count++;
 }

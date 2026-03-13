@@ -14,6 +14,7 @@ public:
 
 private:
     int count;
+    const int MaxSize = 10;
     std::vector<double> vec;
 };
 

@@ -21,7 +21,7 @@ int main()
 {
     Mystack calcStack;
     char command;
-
+    // 打印prompt头
     cout << "This is a reverse Polish Calculator." << endl;
     cout << "Please enter a valid command:" << endl;
     printHelpMenu();
@@ -38,9 +38,9 @@ int main()
             printHelpMenu();
             continue;
         }
-        //这一句很关键，需要把读入命令后的所有都删掉，防止影响到下一次读入
+        // 这一句很关键，需要把读入命令后的所有都删掉，防止影响到下一次读入
         cin.ignore(INT_MAX, '\n');
-
+        // 根据选项来处理
         if (command == '?')
         {
             Push(calcStack);
@@ -83,14 +83,15 @@ int main()
     return 0;
 }
 
-// 函数实现
+// 函数实现（包括鲁棒性）
+// 打印菜单
 void printHelpMenu()
 {
-    cout << "[?]push to stack   [=]print top\n" ;
+    cout << "[?]push to stack   [=]print top\n";
     cout << "[+] [-] [*] [/] [^]   are arithmetic operations\n";
     cout << "[Q]uit.\n";
 }
-
+// 推入
 void Push(Mystack &stack)
 {
     double num;
@@ -111,7 +112,7 @@ void Push(Mystack &stack)
         }
     }
 }
-
+// 打印栈顶元素
 void PrintTop(Mystack &stack)
 {
     if (stack.empty())
@@ -123,7 +124,7 @@ void PrintTop(Mystack &stack)
         cout << stack.top() << endl;
     }
 }
-
+// 加法
 void Add(Mystack &stack)
 {
     if (stack.size() < 2)
@@ -137,7 +138,7 @@ void Add(Mystack &stack)
     stack.pop();
     stack.push(left + right);
 }
-
+// 减法
 void Subtract(Mystack &stack)
 {
     if (stack.size() < 2)
@@ -151,7 +152,7 @@ void Subtract(Mystack &stack)
     stack.pop();
     stack.push(left - right);
 }
-
+// 乘法
 void Multiply(Mystack &stack)
 {
     if (stack.size() < 2)
@@ -165,7 +166,7 @@ void Multiply(Mystack &stack)
     stack.pop();
     stack.push(left * right);
 }
-
+// 除法
 void Divide(Mystack &stack)
 {
     if (stack.size() < 2)
@@ -177,17 +178,17 @@ void Divide(Mystack &stack)
     stack.pop();
     double left = stack.top();
     stack.pop();
-
+    // 除数为0的逻辑处理
     if (right == 0)
     {
-        cout << "Error: Division by zero!" << endl;
+        cout << "Error: Division by zero!Two numbers that poped are pushed into stack again" << endl;
         stack.push(left);
         stack.push(right);
         return;
     }
     stack.push(left / right);
 }
-
+// 幂运算
 void Power(Mystack &stack)
 {
     if (stack.size() < 2)
@@ -199,6 +200,12 @@ void Power(Mystack &stack)
     stack.pop();
     double left = stack.top();
     stack.pop();
+    // 处理0^0
+    if (right == 0 && left == 0)
+    {
+        stack.push(1);
+        return;
+    }
     stack.push(pow(left, right));
 }
 

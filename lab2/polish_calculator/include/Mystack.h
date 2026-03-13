@@ -15,6 +15,7 @@ public:
     int size()  const;
 private:
     int count;
+    const int MaxSize = 10;
     std::vector<double> vec;
 };
 
