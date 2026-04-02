@@ -6,7 +6,7 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/Users/xuxiang/Documents/华师软工2026spring/数据结构与算法--鲍钰ppt/datatructures_labs/lab5/Airport/include
 
-CXX_FLAGSarm64 = -std=c++11 -arch arm64
+CXX_FLAGSarm64 = -g -std=c++11 -arch arm64
 
-CXX_FLAGS = -std=c++11 -arch arm64
+CXX_FLAGS = -g -std=c++11 -arch arm64
 

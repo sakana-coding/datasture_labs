@@ -6,12 +6,11 @@
 
 namespace {
 
-// 通用读入函数：
-// 1. 按行读取，避免 cin 失败后卡死
-// 2. 检查类型是否合法
-// 3. 检查是否满足调用者给出的范围条件
-template <typename T, typename Validator>
-T read_value(const std::string& prompt, const std::string& error_message, Validator validator) {
+// 按行读取一个整数，并检查是否在闭区间 [min_value, max_value] 内。
+int read_int_in_range(const std::string& prompt,
+                      const std::string& error_message,
+                      int min_value,
+                      int max_value) {
     std::string line;
     while (true) {
         std::cout << prompt << std::flush;
@@ -21,12 +20,37 @@ T read_value(const std::string& prompt, const std::string& error_message, Valida
         }
 
         std::istringstream input(line);
-        T value{};
+        int value = 0;
         char extra = '\0';
-        if ((input >> value) && !(input >> extra) && validator(value)) {
+        if ((input >> value) && !(input >> extra) &&
+            value >= min_value && value <= max_value) {
             return value;
         }
-        std::cerr << error_message << std::endl;
+        std::cout << error_message << std::endl;
+    }
+}
+
+// 按行读取一个实数，并检查是否在闭区间 [min_value, max_value] 内。
+double read_double_in_range(const std::string& prompt,
+                            const std::string& error_message,
+                            double min_value,
+                            double max_value) {
+    std::string line;
+    while (true) {
+        std::cout << prompt << std::flush;
+        if (!std::getline(std::cin >> std::ws, line)) {
+            std::cin.clear();
+            continue;
+        }
+
+        std::istringstream input(line);
+        double value = 0.0;
+        char extra = '\0';
+        if ((input >> value) && !(input >> extra) &&
+            value >= min_value && value <= max_value) {
+            return value;
+        }
+        std::cout << error_message << std::endl;
     }
 }
 
@@ -41,35 +65,35 @@ void initialize(int& end_time, int& queue_limit, double& arrival_rate, double& d
     std::cout << "This program simulates an airport with only one runway." << std::endl
               << "One plane can land or depart in each unit of time." << std::endl;
 
-    queue_limit = read_value<int>(
+    queue_limit = read_int_in_range(
         "Up to what number of planes can be waiting to land or take off at any time? ",
-        "Queue limit must be an integer greater than 0.",
-        [](int value) { return value > 0; });
+        "queue_limit must be integer, and queue_limit>=1 and queue_limit<=100",
+        1,
+        100);
 
-    end_time = read_value<int>(
-        "How many units of time will the simulation run? ",
-        "Simulation time must be an integer greater than 0.",
-        [](int value) { return value > 0; });
+    end_time = read_int_in_range(
+        "How many units of time will the simulation run?",
+        "end_time must be integer, and end_time>=1 and end_time<=20",
+        1,
+        20);
 
-    bool acceptable = false;
-    do {
-        arrival_rate = read_value<double>(
-            "Expected number of arrivals per unit time? ",
-            "Arrival rate must be a nonnegative number.",
-            [](double value) { return value >= 0.0; });
+    arrival_rate = read_double_in_range(
+        "Expected number of arrivals per unit time?",
+        "arrival_rate must be double, and arrival_rate>=0 and arrival_rate<=1",
+        0.0,
+        1.0);
 
-        departure_rate = read_value<double>(
-            "Expected number of departures per unit time? ",
-            "Departure rate must be a nonnegative number.",
-            [](double value) { return value >= 0.0; });
+    departure_rate = read_double_in_range(
+        "Expected number of departures per unit time?",
+        "departure_rate must be double, and departure_rate>=0 and departure_rate<=1",
+        0.0,
+        1.0);
 
-        acceptable = true;
-        // 当总流量大于 1 时，意味着平均每个时间单位到来的需求超过单跑道处理能力，
-        // 程序给出饱和警告，但仍允许继续模拟。
-        if (arrival_rate + departure_rate > 1.0) {
-            std::cerr << "Safety Warning: This airport will become saturated." << std::endl;
-        }
-    } while (!acceptable);
+    // 当总流量大于 1 时，意味着平均每个时间单位到来的需求超过单跑道处理能力，
+    // 程序给出饱和警告，但仍允许继续模拟。
+    if (arrival_rate + departure_rate > 1.0) {
+        std::cout << "Safety Warning: This airport will become saturated." << std::endl;
+    }
 }
 
 // 输出跑道空闲信息。

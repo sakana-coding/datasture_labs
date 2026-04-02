@@ -2,7 +2,9 @@
 #include "Random.h"
 #include "Runway.h"
 #include "Utility.h"
-
+/*author 徐翔
+  由于配置.json文件太烦选择了使用cmake
+*/
 int main() {
     // 仿真参数。
     int end_time = 0;
