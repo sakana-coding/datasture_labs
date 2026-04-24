@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -DNDEBUG -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/queens_plain.dir/src/main_plain.cpp.o -o queens_plain  libqueens_plain_solver.a libqueens_core.a

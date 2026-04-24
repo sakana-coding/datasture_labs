@@ -1,0 +1,2 @@
+/usr/bin/ar qc libqueens_core.a CMakeFiles/queens_core.dir/src/Queens.cpp.o CMakeFiles/queens_core.dir/src/InputUtils.cpp.o CMakeFiles/queens_core.dir/src/SolverTypes.cpp.o
+/usr/bin/ranlib libqueens_core.a

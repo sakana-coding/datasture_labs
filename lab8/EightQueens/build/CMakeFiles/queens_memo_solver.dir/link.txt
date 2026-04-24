@@ -1,0 +1,2 @@
+/usr/bin/ar qc libqueens_memo_solver.a CMakeFiles/queens_memo_solver.dir/src/MemoSolver.cpp.o
+/usr/bin/ranlib libqueens_memo_solver.a

@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/xuxiang/Documents/华师软工2026spring/数据结构与算法--鲍钰ppt/datatructures_labs/lab7/polynomial",
+      "program": "/Users/xuxiang/Documents/华师软工2026spring/数据结构与算法--鲍钰ppt/datatructures_labs/lab7/polynomial/build/Debug/outDebug"
+    }
+  ]
+}

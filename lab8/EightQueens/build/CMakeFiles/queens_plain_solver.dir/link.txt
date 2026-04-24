@@ -1,0 +1,2 @@
+/usr/bin/ar qc libqueens_plain_solver.a CMakeFiles/queens_plain_solver.dir/src/PlainSolver.cpp.o
+/usr/bin/ranlib libqueens_plain_solver.a
